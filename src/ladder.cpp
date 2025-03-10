@@ -7,12 +7,46 @@ void error(string word1, string word2, string msg)
     std::cerr << "ERROR - " << msg << ": FROM - " << word1 << ", TO - " << word2 << std::endl;
 }
 
+// checks whether edit can be made in certain distance
+// *arks, b*rks, ba*ks, bar*s, bark*
+// barks -> sharks
+// sbarks
+// sharks
 bool edit_distance_within(const std::string& str1, const std::string& str2, int d)
 {
+    int len_1 = str1.length();
+    int len_2 = str2.length();
 
+    std::vector<int> current(len_2 + 1, 0); // holds all change costs
+
+    for (int j = 0; j <= len_2; ++j)
+        current[j] = j;
+
+    for (int i = 1; i <= len_1; ++i)
+    {
+        int prev = current[0]; // 0 on first loop
+        current[0] = i;
+
+        for (int j = 1; j <= len_2; ++j)
+        {
+            int temp = current[j];
+            if (str1[i - 1] == str2[j - 1])
+                current[j] = prev;
+            else
+                current[j] = 1 + std::min(current[j - 1], std::min(prev, current[j]));
+
+            prev = temp;
+        }
+    }
+    return current[len_2] == d;
 }
 
-bool is_adjacent(const string& word1, const string& word2);
+// finds word that has an edit_distance of 1
+// calls edit_distance within to calculate distance
+bool is_adjacent(const string& last_word, const string& next_word)
+{
+    return edit_distance_within(last_word, next_word, 1);
+}
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list);
 
