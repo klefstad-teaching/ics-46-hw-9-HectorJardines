@@ -2,6 +2,7 @@
 #include <fstream>
 #include <queue>
 #include <set>
+#include <stack>
 #include <map>
 #include <vector>
 #include <string>
