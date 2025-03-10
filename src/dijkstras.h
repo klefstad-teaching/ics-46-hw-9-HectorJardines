@@ -4,6 +4,7 @@
 #include <queue>
 #include <limits>
 #include <stack>
+#include <algorithm>
 
 using namespace std;
 
@@ -25,16 +26,24 @@ struct Edge {
     }
 };
 
-struct Graph : public vector<vector<Edge>> {
-    int numVertices=0;
+struct CompareSecond
+{
+    bool operator()(const std::pair<int, int> & a, const std::pair<int, int> & b)
+    {
+        return a.second > b.second;
+    }
+};
+
+struct Graph : public vector<vector<Edge>> { // adjacency list
+    int numVertices = 0;
 };
 
 inline istream& operator>>(istream& in, Graph& G) {
     if (!(in >> G.numVertices))
         throw runtime_error("Unable to find input file");
-    G.resize(G.numVertices);
+    G.resize(G.numVertices); // Adjacency list so one list per vertex
     for (Edge e; in >> e;)
-        G[e.src].push_back(e);
+        G[e.src].push_back(e); // Push back all neighbors / vertices into their respective list
     return in;
 }
 
