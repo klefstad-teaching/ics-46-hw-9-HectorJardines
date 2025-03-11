@@ -1,5 +1,6 @@
 #include "ladder.h"
 #include <cctype>
+#include <algorithm>
 #include <fstream>
 #include <vector>
 #define my_assert(e) {cout << #e << ((e) ? " passed": " failed") << endl;}
@@ -59,6 +60,7 @@ std::vector<std::string> ladderToVector(std::stack<string> & ladder)
         res.push_back(ladder.top());
         ladder.pop();
     }
+    // std::reverse(res.begin(), res.end());
     return res;
 }
 
@@ -111,14 +113,15 @@ void load_words(std::set<string> & word_list, const std::string& file_name)
 
 void print_word_ladder(const vector<string>& ladder)
 {
-    if (ladder.size() > 0)
+    size_t path_len = ladder.size();
+    if (path_len > 0)
         std::cout << "Word ladder found: " << std::endl;
     else
         std::cout << "No word ladder found.";
 
-    for (std::string word : ladder)
+    for (size_t i = path_len - 1; i > 0; --i)
     {
-        std::cout << word << ' ';
+        std::cout << ladder[i] << ' ';
     }
     std::cout << std::endl;
 }
