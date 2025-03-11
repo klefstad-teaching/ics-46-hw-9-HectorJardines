@@ -76,7 +76,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 
     while(!ladders.empty())
     {
-        std::stack<std::string> ladder = std::move(ladders.front());
+        std::stack<std::string> ladder = ladders.front();
         ladders.pop();
 
         std::string last_word = ladder.top();
