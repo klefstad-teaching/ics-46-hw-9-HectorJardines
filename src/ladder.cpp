@@ -66,9 +66,10 @@ std::vector<std::string> ladderToVector(std::stack<string> & ladder)
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list)
 {
-    std::queue<std::stack<std::string>> ladders;
-    std::stack<std::string> first;
-    first.push(begin_word);
+    std::queue<std::vector<std::string>> ladders;
+    // std::stack<std::string> first;
+    std::vector<std::string> first;
+    first.push_back(begin_word);
     ladders.push(first);
 
     std::set<std::string> visited;
@@ -76,11 +77,12 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
 
     while(!ladders.empty())
     {
-        std::stack<std::string> ladder = ladders.front();
+        // std::stack<std::string> ladder = ladders.front();
+        std::vector<std::string> ladder;
+        ladder.reserve(ladders.front().size());
+        ladder = ladders.front();
         ladders.pop();
-        std::string last_word = ladder.top();
-        if (last_word == end_word)
-            return ladderToVector(ladder);
+        std::string last_word = ladder[ladder.size() - 1];
 
         for (const std::string & word : word_list)
         {
@@ -89,13 +91,15 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
                 if (visited.find(word) == visited.end())
                 {
                     visited.insert(word);
-                    std::stack<std::string> new_ladder = ladder;
-                    new_ladder.push(word);
-
-                    // if(word == end_word)
-                    // {
-                    //     return ladderToVector(new_ladder);
-                    // }
+                    // std::stack<std::string> new_ladder = ladder;
+                    std::vector<std::string> new_ladder;
+                    new_ladder.reserve(ladder.size());
+                    new_ladder = ladder;
+                    new_ladder.push_back(word);
+                    if(word == end_word)
+                    {
+                        return new_ladder;
+                    }
                     ladders.push(new_ladder);
                 }
             }
