@@ -66,6 +66,9 @@ std::vector<std::string> ladderToVector(std::stack<string> & ladder)
 
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list)
 {
+    if (begin_word == end_word || word_list.find(end_word) == word_list.end())
+        return std::vector<std::string>();
+
     std::queue<std::vector<std::string>> ladders;
     // std::stack<std::string> first;
     std::vector<std::string> first;
