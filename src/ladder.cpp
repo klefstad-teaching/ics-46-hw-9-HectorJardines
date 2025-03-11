@@ -78,8 +78,10 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
     {
         std::stack<std::string> ladder = ladders.front();
         ladders.pop();
-
         std::string last_word = ladder.top();
+        if (last_word == end_word)
+            return ladderToVector(ladder);
+
         for (const std::string & word : word_list)
         {
             if (is_adjacent(last_word, word))
@@ -90,10 +92,10 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
                     std::stack<std::string> new_ladder = ladder;
                     new_ladder.push(word);
 
-                    if(word == end_word)
-                    {
-                        return ladderToVector(new_ladder);
-                    }
+                    // if(word == end_word)
+                    // {
+                    //     return ladderToVector(new_ladder);
+                    // }
                     ladders.push(new_ladder);
                 }
             }
@@ -119,7 +121,7 @@ void print_word_ladder(const vector<string>& ladder)
     else
         std::cout << "No word ladder found.";
 
-    for (size_t i = path_len - 1; i > -1; --i)
+    for (int i = path_len - 1; i >= 0; --i)
     {
         std::cout << ladder[i] << ' ';
     }
