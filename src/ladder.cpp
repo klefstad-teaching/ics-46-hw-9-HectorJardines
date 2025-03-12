@@ -85,7 +85,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
         ladder.reserve(ladders.front().size());
         ladder = ladders.front();
         ladders.pop();
-        std::string last_word = ladder.back();
+        std::string last_word = ladder[ladder.size() - 1];
 
         for (const std::string & word : word_list)
         {
