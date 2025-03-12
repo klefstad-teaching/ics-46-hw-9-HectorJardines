@@ -85,7 +85,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
         ladder.reserve(ladders.front().size());
         ladder = ladders.front();
         ladders.pop();
-        std::string last_word = ladder[ladder.size() - 1];
+        std::string last_word = ladder.back();
 
         for (const std::string & word : word_list)
         {
@@ -96,7 +96,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
                     visited.insert(word);
                     // std::stack<std::string> new_ladder = ladder;
                     std::vector<std::string> new_ladder;
-                    new_ladder.reserve(ladder.size());
+                    new_ladder.reserve(ladder.size() + 1);
                     new_ladder = ladder;
                     new_ladder.push_back(word);
                     if(word == end_word)
@@ -128,9 +128,9 @@ void print_word_ladder(const vector<string>& ladder)
     else
         std::cout << "No word ladder found.";
 
-    for (int i = path_len - 1; i >= 0; --i)
+    for (std::string word : ladder)
     {
-        std::cout << ladder[i] << ' ';
+        std::cout << word << ' ';
     }
     std::cout << std::endl;
 }

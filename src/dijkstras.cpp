@@ -54,7 +54,7 @@ vector<int> extract_shortest_path(const vector<int>& distances/*distances*/, con
     vector<Vertex> path;
     std::stack<int> vertices;
 
-    if (distances[destination == INF])
+    if (distances[destination] == INF)
         return path;
 
     vertices.push(destination);
