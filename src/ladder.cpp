@@ -20,6 +20,9 @@ bool edit_distance_within(const std::string& str1, const std::string& str2, int 
     int len_1 = str1.length();
     int len_2 = str2.length();
 
+    if (len_1 - len_2 > 1 || len_2 - len_1 > 1)
+        return false;
+
     // holds all change costs curr[len_2] should hold the final number of steps, but why?
     std::vector<int> current(len_2 + 1, 0); 
 
@@ -67,7 +70,7 @@ std::vector<std::string> ladderToVector(std::stack<string> & ladder)
 vector<string> generate_word_ladder(const string& begin_word, const string& end_word, const set<string>& word_list)
 {
     if (begin_word == end_word || word_list.find(end_word) == word_list.end())
-        return std::vector<std::string>();
+        return {};
 
     std::queue<std::vector<std::string>> ladders;
     // std::stack<std::string> first;
@@ -108,7 +111,7 @@ vector<string> generate_word_ladder(const string& begin_word, const string& end_
             }
         }
     }
-    return std::vector<string>();
+    return {};
 }
 
 void load_words(std::set<string> & word_list, const std::string& file_name)
