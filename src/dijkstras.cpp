@@ -11,7 +11,7 @@ vector<int> dijkstra_shortest_path(const Graph& G, int source, vector<int>& prev
     // std::cout << "Num verts = " << G.numVertices << std::endl;
 
     std::vector<bool> visited(G.numVertices, false);
-    previous.resize(G.numVertices, -1);
+    previous.assign(G.numVertices, -1);
 
     std::priority_queue<std::pair<Vertex, Weight>, std::vector<std::pair<Vertex, Weight>>, CompareSecond> minHeap;
 
